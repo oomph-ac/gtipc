@@ -12,6 +12,7 @@ import (
 
 	"github.com/gameparrot/gtipc/ipcprotocol/rak2user"
 	"github.com/sandertv/gophertunnel/minecraft"
+	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 
 var (
@@ -178,3 +179,5 @@ func (l *IpcServer) handleCustomPacket(b []byte, serverKey string) {
 		l.opts.CustomPacketHandler(b, serverKey)
 	}
 }
+
+func (*IpcServer) Compression(net.Conn) packet.Compression { return packet.FlateCompression }

@@ -10,6 +10,7 @@ import (
 
 	"github.com/sandertv/go-raknet"
 	"github.com/sandertv/gophertunnel/minecraft"
+	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 
 type UpstreamHandler struct {
@@ -167,3 +168,5 @@ func (r RakNetUpstream) PingContext(ctx context.Context, address string) (respon
 func (r RakNetUpstream) Listen(address string) (minecraft.NetworkListener, error) {
 	return raknet.ListenConfig{ErrorLog: r.l.With("net origin", "raknet"), UpstreamPacketListener: r.upstream}.Listen(address)
 }
+
+func (r RakNetUpstream) Compression(net.Conn) packet.Compression { return packet.FlateCompression }

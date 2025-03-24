@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/sandertv/gophertunnel/minecraft"
+	"github.com/sandertv/gophertunnel/minecraft/protocol/packet"
 )
 
 // IpcClient implements a client that connects to an ipc server in PM. This is not recommended for proxy usage.
@@ -111,3 +112,5 @@ func (c *IpcClient) handleCustomPacket(b []byte, serverKey string) {
 		c.opts.CustomPacketHandler(b, serverKey)
 	}
 }
+
+func (*IpcClient) Compression(net.Conn) packet.Compression { return packet.FlateCompression }
